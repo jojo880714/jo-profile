@@ -190,12 +190,13 @@ export const content: Record<Lang, Content> = {
         {
           year: "2024–",
           location: "Taipei",
-          title: "Operations PM",
+          title: "Marketing Operations PM",
           org: "TKB 放洋留遊學",
           bullets: [
-            "One-person team across product, systems, vendor management and marketing-ops.",
-            "Used AI and automation to take vendor management from X hours to Y hours per week (TODO: real numbers).",
-            "Led the 0→1 launch of the XiXi Market vendor onboarding system.",
+            "Designed and launched the company's first study-abroad product line from concept to market, including end-to-end product build and enablement training for 300+ regional sales staff.",
+            "Drove the launch-season summer campaign for the new product line, generating 260 qualified leads and converting to NT$1M+ in first-season revenue.",
+            "Shipped 6 internal systems end-to-end (React + Firebase + Supabase + Google Apps Script + AI APIs), spanning vendor lifecycle management, AI-generated content CMS, dual-version quotation automation, and multi-account social analytics — including a booth recruitment system built in 3 weeks for a recurring 2-events × 30-booths-per-month cadence.",
+            "Grew the company's Threads channel 25× (69 → 1,700 followers in one year) and established a campus ambassador program from scratch, including recruitment and execution framework.",
           ],
         },
         {
@@ -204,9 +205,9 @@ export const content: Record<Lang, Content> = {
           title: "Founder & community operator",
           org: "Joysee Travel 揪西歡玩",
           bullets: [
-            "Built an outdoor-activity community from zero, ran N events (TODO: real numbers).",
-            "Self-built the signup / notification / management system; shipping on weekends.",
-            "Grew Threads to X followers — content and business growing in parallel (TODO: real numbers).",
+            "Founded Joysee Travel, an outdoor-activity community running 5–7 themed gatherings per year for 500+ cumulative participants — a sports-leaning audience with 2,400+ Threads followers and an unusual 60% female composition (rare for the sports / outdoor vertical).",
+            "Built JoySee 活動指揮中心 (Event Command Center), an end-to-end event-ops system covering registration, LINE-integrated notifications, tiered member management, payment verification and Google Sheets auto-sync — supporting the community's recurring event cadence.",
+            "Integrated AI tools into live event formats (e.g. the “Bluffing King” improv presentation challenge) and built a complementary interactive presentation system to enrich on-site participant engagement.",
           ],
         },
       ],
@@ -355,12 +356,13 @@ export const content: Record<Lang, Content> = {
         {
           year: "2024–",
           location: "Taipei",
-          title: "Operations PM",
+          title: "Marketing Operations PM",
           org: "TKB 放洋留遊學",
           bullets: [
-            "一人團隊跨產品、系統、廠商談判、行銷四條線。",
-            "用 AI 與自動化把廠商管理流程從 X 小時降至 Y 小時 (TODO: 真實數字)。",
-            "主導惜惜市集招商系統 0→1 上線。",
+            "設計並推出公司首條遊學產品線，從產品建置到全區 300+ 業務的銷售培訓。",
+            "主導新產品線的暑期 launch 行銷，帶入 260 位精準客戶名單，首季轉換營收破百萬。",
+            "任職期間端到端 ship 6 套內部系統（React + Firebase + Supabase + GAS + AI APIs），涵蓋廠商生命週期管理、AI 內容生成 CMS、雙版本報價自動化、多帳號社群數據監控，含 3 週交付的招商系統，支援每月 2 場 × 30 攤的講座節奏。",
+            "公司 Threads 帳號一年成長 25 倍（69 → 1,700 追蹤），從 0 創立校園大使制度與執行辦法。",
           ],
         },
         {
@@ -369,9 +371,9 @@ export const content: Record<Lang, Content> = {
           title: "Founder & community operator",
           org: "揪西歡玩 Joysee Travel",
           bullets: [
-            "從 0 建立戶外活動社群,辦過 N 場活動 (TODO: 真實數字)。",
-            "自架報名/通知/管理系統,週末出貨。",
-            "Threads 經營到 X 追蹤,自媒體與業務並進 (TODO: 真實數字)。",
+            "創辦揪西歡玩 Joysee Travel，戶外活動揪團社群，年辦 5–7 場主題活動，累計 500+ 參與者；社群定位偏運動／戶外，Threads 累積 2,400+ 追蹤、受眾女性佔 60%（運動社群中少見的性別組合）。",
+            "自建 JoySee 活動指揮中心，端到端活動營運系統：報名、LINE 自動化通知、分層會員管理、付款憑證審核、Google Sheets 自動同步，支援社群常態活動運作。",
+            "將 AI 工具導入現場活動體驗（如「唬爛王」即興簡報挑戰），並自建互動式簡報系統提升現場參與感。",
           ],
         },
       ],
