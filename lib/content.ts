@@ -151,7 +151,7 @@ export const content: Record<Lang, Content> = {
       ],
       metrics: [
         { value: "5+", label: "Years in ops" },
-        { value: "8+", label: "Systems shipped" },
+        { value: "9+", label: "Systems shipped" },
         { value: "3", label: "Communities built" },
         { value: "1", label: "Team size" },
       ],
@@ -317,7 +317,7 @@ export const content: Record<Lang, Content> = {
       ],
       metrics: [
         { value: "5+", label: "年營運經驗" },
-        { value: "8+", label: "上線系統" },
+        { value: "9+", label: "上線系統" },
         { value: "3", label: "經營社群" },
         { value: "1", label: "團隊人數" },
       ],
