@@ -3,7 +3,7 @@ import type { Content } from "@/lib/content";
 
 export function About({ about }: { about: Content["about"] }) {
   return (
-    <Section id="about" className="bg-neutral-50">
+    <Section id="about">
       <div className="flex flex-col gap-3 mb-10 md:mb-14">
         <Kicker>{about.kicker}</Kicker>
         <h2 className="slogan text-3xl sm:text-4xl md:text-5xl text-neutral-900">

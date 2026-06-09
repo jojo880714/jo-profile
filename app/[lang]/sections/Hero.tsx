@@ -3,18 +3,19 @@ import type { Content } from "@/lib/content";
 /**
  * Hero illustration — abstract "team of one" node graph.
  * One operator at the center (yellow ring) connected by dashed
- * lines to six labeled satellites (the systems Jo ships).
+ * lines to six unlabeled satellites. The visual carries the
+ * meaning without forcing the viewer to decode codes.
  */
 function HeroIllustration() {
-  // Six satellites: a mix of squares (systems / dashboards) and
+  // Six satellites: alternating squares (systems / dashboards) and
   // circles (channels / communities) to vary the rhythm.
   const satellites = [
-    { x: 50, y: 56, shape: "rect", label: "PM" },
-    { x: 200, y: 48, shape: "rect", label: "GAS" },
-    { x: 232, y: 132, shape: "circle", label: "AI" },
-    { x: 200, y: 218, shape: "rect", label: "OPS" },
-    { x: 50, y: 218, shape: "circle", label: "JS" },
-    { x: 18, y: 132, shape: "circle", label: "TKB" },
+    { x: 50, y: 56, shape: "rect" },
+    { x: 200, y: 48, shape: "rect" },
+    { x: 232, y: 132, shape: "circle" },
+    { x: 200, y: 218, shape: "rect" },
+    { x: 50, y: 218, shape: "circle" },
+    { x: 18, y: 132, shape: "circle" },
   ];
 
   return (
@@ -51,53 +52,27 @@ function HeroIllustration() {
 
       {satellites.map((s, i) =>
         s.shape === "rect" ? (
-          <g key={`n-${i}`}>
-            <rect
-              x={s.x - 14}
-              y={s.y - 14}
-              width="28"
-              height="28"
-              rx="4"
-              fill="#ffffff"
-              stroke="#0a0a0a"
-              strokeWidth="1.5"
-            />
-            <text
-              x={s.x}
-              y={s.y + 3}
-              textAnchor="middle"
-              fontFamily="var(--font-jetbrains-mono), monospace"
-              fontSize="7"
-              fontWeight="500"
-              fill="#0a0a0a"
-              letterSpacing="0.05em"
-            >
-              {s.label}
-            </text>
-          </g>
+          <rect
+            key={`n-${i}`}
+            x={s.x - 12}
+            y={s.y - 12}
+            width="24"
+            height="24"
+            rx="4"
+            fill="#ffffff"
+            stroke="#0a0a0a"
+            strokeWidth="1.5"
+          />
         ) : (
-          <g key={`n-${i}`}>
-            <circle
-              cx={s.x}
-              cy={s.y}
-              r="15"
-              fill="#ffffff"
-              stroke="#0a0a0a"
-              strokeWidth="1.5"
-            />
-            <text
-              x={s.x}
-              y={s.y + 3}
-              textAnchor="middle"
-              fontFamily="var(--font-jetbrains-mono), monospace"
-              fontSize="7"
-              fontWeight="500"
-              fill="#0a0a0a"
-              letterSpacing="0.05em"
-            >
-              {s.label}
-            </text>
-          </g>
+          <circle
+            key={`n-${i}`}
+            cx={s.x}
+            cy={s.y}
+            r="13"
+            fill="#ffffff"
+            stroke="#0a0a0a"
+            strokeWidth="1.5"
+          />
         )
       )}
 

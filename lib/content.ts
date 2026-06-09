@@ -4,9 +4,18 @@
 //   2. social.github   → fill in GitHub profile URL
 //   3. social.cv       → upload CV PDF to /public/cv.pdf and set
 //                        cv: "/cv.pdf"  (Jo hasn't made the CV yet)
-//   4. Hero illustration is currently an inline SVG node graph in
+//   4. Hero illustration is an inline SVG node graph in
 //      app/[lang]/sections/Hero.tsx — swap for a real illustration
 //      asset if/when one exists.
+//
+// Punctuation policy for ZH content:
+//   - 逗號／句號／問號／冒號／引號／括號 全部用全形
+//     （，。？：「」（））
+//   - 破折號用 ——（雙）
+//   - 數字範圍用半形 –（en-dash），例：5–7、2024–
+//   - CJK ↔ 英文／數字 之間留半形空格
+// EN content with mixed CJK: English first, Chinese in parens on
+// first occurrence, e.g. "Joysee Travel (揪西歡玩)".
 // ─────────────────────────────────────────────────────────────
 
 export type Lang = "en" | "zh";
@@ -19,6 +28,7 @@ export type Capability = {
   icon: "package" | "robot" | "code" | "handshake" | "users";
   title: string;
   description: string;
+  stack: string;
 };
 
 export type Metric = { value: string; label: string };
@@ -38,8 +48,6 @@ export type ExperienceItem = {
   bullets: string[];
 };
 
-export type SkillGroup = { label: string; items: string };
-
 export type Content = {
   nav: {
     items: NavItem[];
@@ -52,10 +60,16 @@ export type Content = {
     ctaPrimary: string;
     ctaSecondary: string;
   };
+  now: {
+    label: string;
+    prefix: string;
+    items: string[];
+  };
   capabilities: {
     kicker: string;
     title: string;
     items: Capability[];
+    stackLabel: string;
   };
   about: {
     kicker: string;
@@ -73,11 +87,6 @@ export type Content = {
     title: string;
     items: ExperienceItem[];
   };
-  skills: {
-    kicker: string;
-    title: string;
-    groups: SkillGroup[];
-  };
   cta: {
     kicker: string;
     slogan: string;
@@ -90,88 +99,108 @@ export type Content = {
     threads: string;
     github: string;
     email: string;
+    inlineCTA: string;
   };
 };
 
-const navAnchors: NavItem[] = [
+const navItemsEN: NavItem[] = [
   { href: "#about", label: "About" },
-  { href: "#work", label: "Work" },
+  { href: "#what-i-do", label: "What I do" },
   { href: "#projects", label: "Projects" },
   { href: "#experience", label: "Experience" },
   { href: "#contact", label: "Contact" },
 ];
 
+const navItemsZH: NavItem[] = [
+  { href: "#about", label: "關於" },
+  { href: "#what-i-do", label: "我能做什麼" },
+  { href: "#projects", label: "作品" },
+  { href: "#experience", label: "經歷" },
+  { href: "#contact", label: "聯絡" },
+];
+
 export const content: Record<Lang, Content> = {
   en: {
     nav: {
-      items: navAnchors,
+      items: navItemsEN,
       langToggle: { en: "EN", zh: "中" },
     },
     hero: {
-      kicker: "Operations PM · Builder of systems",
+      kicker: "Marketing Operations PM · Builder of systems",
       slogan: "Ship like a team of one.",
       intro:
-        "Hi, I'm Jo — a 5-year ops PM who uses AI and automation to turn one person into a cross-functional team. At a study-abroad company I run product, systems, vendor deals and community at the same time. On the side I build products, run events, and ship tools.",
+        "I'm Jo — five years operating as a PM in the study-abroad industry. One person carrying product, systems, vendor negotiation and community at once. AI and automation are how I scale a single person into a cross-functional team. After hours I ship side products, run events and write tools.",
       ctaPrimary: "View my work",
       ctaSecondary: "Get in touch",
     },
+    now: {
+      label: "Now",
+      prefix: "Currently shipping",
+      items: ["Event system", "Market system", "Language-school CMS"],
+    },
     capabilities: {
-      kicker: "// What I do",
+      kicker: "What I do",
       title: "Five lanes, one operator.",
+      stackLabel: "Stack",
       items: [
         {
           icon: "package",
           title: "Product operations",
           description:
             "From spec to launch, I take products live on my own.",
+          stack: "OKRs · Notion · Roadmaps · Linear",
         },
         {
           icon: "robot",
           title: "AI & automation",
           description:
             "Claude · Claude Code · Google Apps Script to remove busywork.",
+          stack: "Cursor · Claude API · Webhooks",
         },
         {
           icon: "code",
           title: "Full-stack prototyping",
           description:
             "Next.js + Supabase to build 0→1 systems end to end.",
+          stack: "TypeScript · React · Tailwind · PostgreSQL",
         },
         {
           icon: "handshake",
           title: "Vendor & ops",
           description:
             "Negotiating with vendors, reviewing contracts, designing the process.",
+          stack: "LINE OA · CRM · Contract review · Process docs",
         },
         {
           icon: "users",
           title: "Community building",
           description:
             "Starting communities from zero — events, retention, the long game.",
+          stack: "LINE Bot · LIFF · Threads · Instagram · Figma",
         },
       ],
     },
     about: {
-      kicker: "// About me",
+      kicker: "About me",
       slogan: "Leverage through systems.",
       paragraphs: [
-        "I'm a generalist across ops, product, engineering and community. At TKB 放洋留遊學 I work as an Operations PM — PM, systems architect, vendor lead and marketing-ops in one role — using tools to scale a single person's output.",
-        "I believe tools are leverage. I write code with Claude / Claude Code, run backends on Supabase, and automate ops with Google Apps Script. I love taking a fuzzy ask, breaking it into a system, and shipping it.",
+        "I work as a generalist — ops, product, engineering and community are all on my desk. My belief: tools are leverage. The cleanest way to scale a single operator is to turn fuzzy asks into systems that run themselves.",
+        "My favourite part of the job is reverse-engineering a messy human process into a clean machine. Find the bottleneck, prototype the fix, ship it, watch it remove a week of work — then go find the next bottleneck.",
       ],
       metrics: [
-        { value: "5+", label: "Years in ops" },
+        { value: "5+", label: "Years operating" },
         { value: "9+", label: "Systems shipped" },
         { value: "3", label: "Communities built" },
         { value: "1", label: "Team size" },
       ],
     },
     projects: {
-      kicker: "// Selected projects",
+      kicker: "Selected projects",
       title: "Things I built recently.",
       items: [
         {
           meta: "PRODUCT · 2025",
-          title: "惜惜市集 (XiXi Market)",
+          title: "XiXi Market (惜惜市集)",
           description:
             "Vendor onboarding and management system on Next.js + Supabase. Architecture to deploy, shipped solo.",
           tags: "next.js · supabase · resend",
@@ -193,7 +222,7 @@ export const content: Record<Lang, Content> = {
       ],
     },
     experience: {
-      kicker: "// Experience",
+      kicker: "Experience",
       title: "Where I've been operating.",
       items: [
         {
@@ -212,50 +241,20 @@ export const content: Record<Lang, Content> = {
           year: "2023–",
           location: "Side",
           title: "Founder & community operator",
-          org: "Joysee Travel 揪西歡玩",
+          org: "Joysee Travel (揪西歡玩)",
           bullets: [
             "Founded Joysee Travel, an outdoor-activity community running 5–7 themed gatherings per year for 500+ cumulative participants — a sports-leaning audience with 2,400+ Threads followers and an unusual 60% female composition (rare for the sports / outdoor vertical).",
-            "Built JoySee 活動指揮中心 (Event Command Center), an end-to-end event-ops system covering registration, LINE-integrated notifications, tiered member management, payment verification and Google Sheets auto-sync — supporting the community's recurring event cadence.",
-            "Integrated AI tools into live event formats (e.g. the “Bluffing King” improv presentation challenge) and built a complementary interactive presentation system to enrich on-site participant engagement.",
+            "Built JoySee Event Command Center (活動指揮中心), an end-to-end event-ops system covering registration, LINE-integrated notifications, tiered member management, payment verification and Google Sheets auto-sync — supporting the community's recurring event cadence.",
+            "Integrated AI tools into live event formats (e.g. the Bluffing King (唬爛王) improv presentation challenge) and built a complementary interactive presentation system to enrich on-site participant engagement.",
           ],
         },
       ],
     },
-    skills: {
-      kicker: "// Skills",
-      title: "Stack I reach for.",
-      groups: [
-        {
-          label: "OPERATIONS",
-          items: "Product strategy · Vendor mgmt · OKRs · Process design",
-        },
-        {
-          label: "DEV STACK",
-          items: "Next.js · React · TypeScript · Supabase · PostgreSQL",
-        },
-        {
-          label: "AUTOMATION",
-          items: "Google Apps Script · Webhooks · API integration",
-        },
-        {
-          label: "AI TOOLS",
-          items: "Claude · Claude Code · Cursor · Claude API",
-        },
-        {
-          label: "DESIGN & CONTENT",
-          items: "Figma · Canva · Threads · Instagram · Short-form video",
-        },
-        {
-          label: "COMMUNITY",
-          items: "LINE Bot · LIFF · Event design · Community retention",
-        },
-      ],
-    },
     cta: {
-      kicker: "// Let's talk",
+      kicker: "Let's talk",
       slogan: "Let's build something useful.",
       paragraph:
-        "Got an ops process worth automating? A 0→1 side product you want to ship? Need a generalist who can move across ops, product and engineering? I'd love to chat.",
+        "Got an ops process that's worth automating? A 0→1 side product looking for a builder? Need a generalist who can move across ops, product and engineering? Any of these — let's chat.",
       ctaPrimary: "Get in touch",
       ctaSecondary: "Download CV",
     },
@@ -264,64 +263,70 @@ export const content: Record<Lang, Content> = {
       threads: "Threads",
       github: "GitHub",
       email: "Email",
+      inlineCTA: "Get in touch →",
     },
   },
   zh: {
     nav: {
-      items: [
-        { href: "#about", label: "About" },
-        { href: "#work", label: "Work" },
-        { href: "#projects", label: "Projects" },
-        { href: "#experience", label: "Experience" },
-        { href: "#contact", label: "Contact" },
-      ],
+      items: navItemsZH,
       langToggle: { en: "EN", zh: "中" },
     },
     hero: {
-      kicker: "Operations PM · Builder of systems",
-      slogan: "一個人,一支團隊。",
+      kicker: "Marketing Operations PM · 系統建構者",
+      slogan: "一個人，做一支團隊的事。",
       intro:
-        "Hi, I'm Jo — 5 年行銷營運 PM，用 AI 與自動化把一個人變成一支跨職能團隊。在留遊學產業同時負責產品、系統、廠商談判與社群,業餘做產品、辦活動、寫工具。",
+        "我是 Jo，做營運 PM 五年。在留遊學產業一個人同時扛產品、系統、廠商跟社群，靠 AI 跟自動化，把一個人擴成一支跨職能團隊。下班後做 side product、辦活動、寫工具。",
       ctaPrimary: "看看我的作品",
       ctaSecondary: "跟我聊聊",
     },
+    now: {
+      label: "Now",
+      prefix: "正在做",
+      items: ["活動系統", "市集系統", "語校 CMS"],
+    },
     capabilities: {
-      kicker: "// What I do",
-      title: "五條線,一個人。",
+      kicker: "我能做什麼",
+      title: "五條線，一個人。",
+      stackLabel: "工具",
       items: [
         {
           icon: "package",
-          title: "Product operations",
-          description: "從需求到上線,獨立把產品做出來。",
+          title: "產品營運",
+          description: "從需求到上線，獨立把產品做出來。",
+          stack: "OKRs · Notion · 路徑規劃 · 流程設計",
         },
         {
           icon: "robot",
-          title: "AI & automation",
-          description: "Claude · Claude Code · GAS 把流程自動化。",
+          title: "AI 與自動化",
+          description: "Claude · Claude Code · GAS——把繁雜流程自動化。",
+          stack: "Cursor · Claude API · Webhooks",
         },
         {
           icon: "code",
-          title: "Full-stack prototyping",
-          description: "Next.js + Supabase 蓋 0→1 系統。",
+          title: "全端開發",
+          description: "Next.js + Supabase 撐 0→1 系統。",
+          stack: "TypeScript · React · Tailwind · PostgreSQL",
         },
         {
           icon: "handshake",
-          title: "Vendor & ops",
-          description: "廠商談判、合約審核、流程設計。",
+          title: "廠商與營運",
+          description: "廠商談判、合約審核、流程設計一條龍。",
+          stack: "LINE OA · CRM · 合約審核 · 流程文件",
         },
         {
           icon: "users",
-          title: "Community building",
+          title: "社群經營",
           description: "從 0 開始建立社群、辦活動、撐留存。",
+          stack: "LINE Bot · LIFF · Threads · Instagram · Figma",
         },
       ],
     },
     about: {
-      kicker: "// About me",
+      kicker: "關於我",
       slogan: "用系統放大自己。",
       paragraphs: [
-        "我是橫跨營運、產品、技術、社群的多面手。在 TKB 放洋留遊學任 Operations PM,身兼 PM、系統架構、廠商談判、行銷營運,用工具放大一個人的產出。",
-        "我相信工具是 leverage。用 Claude / Claude Code 寫程式、用 Supabase 撐後端、用 GAS 自動化營運。我喜歡把模糊的需求拆成可執行的系統,再把它做出來。",
+        "我是個 generalist——營運、產品、技術、社群，這四件事我都做。我深信：工具就是槓桿。要把一個人撐成一支團隊，唯一的辦法就是把模糊的需求變成會自己跑的系統。",
+        "我最享受的時刻：把一個亂七八糟的人為流程，反推成一台乾淨的機器。找出瓶頸、打一個原型、上線、看它砍掉一週的工——然後去找下一個瓶頸。",
       ],
       metrics: [
         { value: "5+", label: "年營運經驗" },
@@ -331,34 +336,34 @@ export const content: Record<Lang, Content> = {
       ],
     },
     projects: {
-      kicker: "// Selected projects",
+      kicker: "精選作品",
       title: "最近做的東西。",
       items: [
         {
           meta: "PRODUCT · 2025",
           title: "惜惜市集",
           description:
-            "Next.js + Supabase 攤位招商與管理系統,從架構到部署一人完成。",
+            "用 Next.js + Supabase 蓋的攤位招商與管理系統，從架構到部署一人完成。",
           tags: "next.js · supabase · resend",
         },
         {
           meta: "PRODUCT · 2025",
           title: "joysee.travel",
           description:
-            "LINE 活動報名平台,LIFF + Edge Functions + Tally 整合。",
+            "LINE 原生的活動報名平台：LIFF + Edge Functions + Tally 整合。",
           tags: "vite · supabase · liff",
         },
         {
           meta: "AUTOMATION · 2024",
           title: "Threads 自動化系統 v16",
           description:
-            "三帳號排程、指標快照、CTA 觸發、月度摘要,一個 GAS 專案搞定。",
+            "三帳號排程、指標快照、CTA 觸發、月度摘要——一個 GAS 專案搞定。",
           tags: "gas · meta api · sheets",
         },
       ],
     },
     experience: {
-      kicker: "// Experience",
+      kicker: "經歷",
       title: "我待過的地方。",
       items: [
         {
@@ -386,41 +391,11 @@ export const content: Record<Lang, Content> = {
         },
       ],
     },
-    skills: {
-      kicker: "// Skills",
-      title: "我常用的工具。",
-      groups: [
-        {
-          label: "OPERATIONS",
-          items: "Product strategy · Vendor mgmt · OKRs · Process design",
-        },
-        {
-          label: "DEV STACK",
-          items: "Next.js · React · TypeScript · Supabase · PostgreSQL",
-        },
-        {
-          label: "AUTOMATION",
-          items: "Google Apps Script · Webhooks · API integration",
-        },
-        {
-          label: "AI TOOLS",
-          items: "Claude · Claude Code · Cursor · Claude API",
-        },
-        {
-          label: "DESIGN & CONTENT",
-          items: "Figma · Canva · Threads · IG · 短影音",
-        },
-        {
-          label: "COMMUNITY",
-          items: "LINE Bot · LIFF · 活動企劃 · 社群留存",
-        },
-      ],
-    },
     cta: {
-      kicker: "// Let's talk",
+      kicker: "聊一下",
       slogan: "來做點有用的東西吧。",
       paragraph:
-        "有想自動化的營運流程？有想做 0→1 的 side product？需要一個橫跨營運、產品、技術的 generalist？歡迎聊聊。",
+        "有想自動化的營運流程嗎？想做一個 0→1 的 side product，卻找不到合適的夥伴？或者你需要一個能在營運、產品、技術之間切換的 generalist？這些都歡迎來聊。",
       ctaPrimary: "跟我聊聊",
       ctaSecondary: "下載履歷",
     },
@@ -429,6 +404,7 @@ export const content: Record<Lang, Content> = {
       threads: "Threads",
       github: "GitHub",
       email: "Email",
+      inlineCTA: "聯絡我 →",
     },
   },
 };

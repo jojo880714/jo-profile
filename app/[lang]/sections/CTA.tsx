@@ -6,7 +6,13 @@ export function CTA({ cta }: { cta: Content["cta"] }) {
   return (
     <Section id="contact" className="bg-neutral-900 text-white">
       <div className="flex flex-col gap-6 max-w-3xl">
-        <p className="kicker text-neutral-400">{cta.kicker}</p>
+        <p className="kicker flex items-center gap-2 !text-neutral-400">
+          <span
+            aria-hidden="true"
+            className="inline-block h-[10px] w-[10px] bg-[#ffca40]"
+          />
+          <span>{cta.kicker}</span>
+        </p>
         <h2 className="slogan text-3xl sm:text-4xl md:text-5xl text-white">
           {cta.slogan}
         </h2>

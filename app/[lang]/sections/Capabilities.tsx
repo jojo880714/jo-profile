@@ -22,7 +22,7 @@ export function Capabilities({
   capabilities: Content["capabilities"];
 }) {
   return (
-    <Section id="work">
+    <Section id="what-i-do">
       <div className="flex flex-col gap-3 mb-12 md:mb-16">
         <Kicker>{capabilities.kicker}</Kicker>
         <h2 className="slogan text-3xl sm:text-4xl md:text-5xl text-neutral-900">
@@ -30,29 +30,42 @@ export function Capabilities({
         </h2>
       </div>
 
-      <ul
-        className="grid gap-6"
-        style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-        }}
-      >
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
         {capabilities.items.map((item) => (
-          <CapabilityCard key={item.title} item={item} />
+          <CapabilityCard
+            key={item.title}
+            item={item}
+            stackLabel={capabilities.stackLabel}
+          />
         ))}
       </ul>
     </Section>
   );
 }
 
-function CapabilityCard({ item }: { item: Capability }) {
+function CapabilityCard({
+  item,
+  stackLabel,
+}: {
+  item: Capability;
+  stackLabel: string;
+}) {
   const Icon = iconMap[item.icon];
   return (
     <li className="flex flex-col gap-3 rounded-xl border border-neutral-200 p-5 hover:border-neutral-900 transition-colors">
       <Icon size={24} strokeWidth={1.5} className="text-neutral-900" />
       <h3 className="text-base font-medium text-neutral-900">{item.title}</h3>
-      <p className="text-sm leading-relaxed text-neutral-600">
+      <p className="text-sm leading-relaxed text-neutral-600 flex-1">
         {item.description}
       </p>
+      <div className="pt-3 border-t border-neutral-100">
+        <p className="font-mono text-[10px] uppercase tracking-wider text-neutral-400 mb-1">
+          {stackLabel}
+        </p>
+        <p className="font-mono text-[11px] text-neutral-500 leading-relaxed">
+          {item.stack}
+        </p>
+      </div>
     </li>
   );
 }

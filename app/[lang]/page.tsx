@@ -2,11 +2,11 @@ import { notFound } from "next/navigation";
 import { content, LANGS, type Lang } from "@/lib/content";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "./sections/Hero";
+import { NowBar } from "./sections/NowBar";
 import { Capabilities } from "./sections/Capabilities";
 import { About } from "./sections/About";
 import { Projects } from "./sections/Projects";
 import { Experience } from "./sections/Experience";
-import { Skills } from "./sections/Skills";
 import { CTA } from "./sections/CTA";
 import { Footer } from "./sections/Footer";
 
@@ -30,11 +30,11 @@ export default async function ProfilePage({
       <Navigation lang={lang as Lang} nav={c.nav} />
       <main>
         <Hero hero={c.hero} />
+        <NowBar now={c.now} />
         <Capabilities capabilities={c.capabilities} />
         <About about={c.about} />
         <Projects projects={c.projects} />
         <Experience experience={c.experience} />
-        <Skills skills={c.skills} />
         <CTA cta={c.cta} />
       </main>
       <Footer footer={c.footer} />
