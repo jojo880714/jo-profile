@@ -1,11 +1,5 @@
 import type { Content } from "@/lib/content";
 
-/**
- * Hero illustration — abstract "team of one" node graph.
- * One operator at the center (yellow ring) connected by dashed
- * lines to six unlabeled satellites. The visual carries the
- * meaning without forcing the viewer to decode codes.
- */
 function HeroIllustration() {
   const satellites = [
     { x: 50, y: 56, shape: "rect" },
@@ -74,7 +68,6 @@ function HeroIllustration() {
         ),
       )}
 
-      {/* Center: operator (one person) */}
       <circle cx="130" cy="130" r="28" fill="#ffca40" />
       <circle cx="130" cy="130" r="22" fill="#0a0a0a" />
       <text
@@ -97,10 +90,16 @@ export function Hero({ hero }: { hero: Content["hero"] }) {
   return (
     <section
       id="top"
-      className="px-6 sm:px-8 pt-16 pb-20 sm:pt-24 sm:pb-28 md:pt-28 md:pb-36"
+      className="px-6 sm:px-8 pt-12 pb-20 sm:pt-20 sm:pb-28 md:pt-24 md:pb-36"
     >
       <div className="mx-auto grid w-full max-w-5xl gap-12 md:grid-cols-[1.4fr_1fr] md:items-center md:gap-16">
-        <div className="flex flex-col gap-6 md:gap-8">
+        <div className="flex flex-col gap-5 md:gap-7">
+          {hero.availability && (
+            <span className="availability-badge self-start">
+              <span className="dot" aria-hidden="true" />
+              <span>{hero.availability}</span>
+            </span>
+          )}
           <p className="kicker">{hero.kicker}</p>
           <h1 className="slogan slogan-hero text-neutral-900">
             {hero.slogan}

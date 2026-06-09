@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Content, Lang } from "@/lib/content";
+import { resumeCTA, social } from "@/lib/content";
 
 type NavigationProps = {
   lang: Lang;
@@ -18,6 +19,12 @@ export function Navigation({ lang, nav }: NavigationProps) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const cvHref =
+    social.cv ||
+    `mailto:${social.email}?subject=${encodeURIComponent(
+      "Request CV — Jo Lin",
+    )}`;
 
   return (
     <header
@@ -35,7 +42,7 @@ export function Navigation({ lang, nav }: NavigationProps) {
           Jo Lin
         </Link>
 
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-7">
           {nav.items.map((item) => (
             <li key={item.href}>
               <a
@@ -48,30 +55,39 @@ export function Navigation({ lang, nav }: NavigationProps) {
           ))}
         </ul>
 
-        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider">
-          <Link
-            href="/en"
-            aria-current={lang === "en" ? "page" : undefined}
-            className={
-              lang === "en"
-                ? "text-neutral-900"
-                : "text-neutral-400 hover:text-neutral-900 transition-colors"
-            }
+        <div className="flex items-center gap-3">
+          <a
+            href={cvHref}
+            className="btn-press hidden sm:inline-flex items-center rounded-full border border-neutral-900 bg-neutral-900 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-white hover:bg-white hover:text-neutral-900 transition-colors"
           >
-            {nav.langToggle.en}
-          </Link>
-          <span className="text-neutral-300">·</span>
-          <Link
-            href="/zh"
-            aria-current={lang === "zh" ? "page" : undefined}
-            className={
-              lang === "zh"
-                ? "text-neutral-900"
-                : "text-neutral-400 hover:text-neutral-900 transition-colors"
-            }
-          >
-            {nav.langToggle.zh}
-          </Link>
+            {resumeCTA[lang]}
+          </a>
+
+          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider">
+            <Link
+              href="/en"
+              aria-current={lang === "en" ? "page" : undefined}
+              className={
+                lang === "en"
+                  ? "text-neutral-900"
+                  : "text-neutral-400 hover:text-neutral-900 transition-colors"
+              }
+            >
+              {nav.langToggle.en}
+            </Link>
+            <span className="text-neutral-300">·</span>
+            <Link
+              href="/zh"
+              aria-current={lang === "zh" ? "page" : undefined}
+              className={
+                lang === "zh"
+                  ? "text-neutral-900"
+                  : "text-neutral-400 hover:text-neutral-900 transition-colors"
+              }
+            >
+              {nav.langToggle.zh}
+            </Link>
+          </div>
         </div>
       </nav>
     </header>

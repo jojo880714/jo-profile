@@ -1,4 +1,4 @@
-import { Section, Kicker } from "@/components/Section";
+import { Section } from "@/components/Section";
 import type { Content } from "@/lib/content";
 import { social } from "@/lib/content";
 
@@ -8,9 +8,6 @@ export function CTA({ cta }: { cta: Content["cta"] }) {
       id="contact"
       className="relative text-white bg-[#0f0f10]"
     >
-      {/* Soften the abrupt dark-section transition with a radial wash
-          + a top fade so the CTA reads as a deliberate dim, not a copy
-          paste accident. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,rgba(255,202,64,0.18),transparent_55%)]"
@@ -31,6 +28,11 @@ export function CTA({ cta }: { cta: Content["cta"] }) {
         <h2 className="slogan slogan-section text-white">
           {cta.slogan}
         </h2>
+        {cta.availability && (
+          <p className="text-sm md:text-base text-neutral-200 leading-relaxed border-l-2 border-[#ffca40] pl-4">
+            {cta.availability}
+          </p>
+        )}
         <p className="text-base md:text-lg text-neutral-300 leading-relaxed">
           {cta.paragraph}
         </p>
@@ -41,14 +43,17 @@ export function CTA({ cta }: { cta: Content["cta"] }) {
           >
             {cta.ctaPrimary}
           </a>
-          {social.cv && (
-            <a
-              href={social.cv}
-              className="btn-press inline-flex items-center justify-center rounded-full border border-white bg-transparent text-white px-5 py-3 text-sm font-medium hover:bg-white hover:text-neutral-900"
-            >
-              {cta.ctaSecondary}
-            </a>
-          )}
+          <a
+            href={
+              social.cv ||
+              `mailto:${social.email}?subject=${encodeURIComponent(
+                "Request CV — Jo Lin",
+              )}`
+            }
+            className="btn-press inline-flex items-center justify-center rounded-full border border-white bg-transparent text-white px-5 py-3 text-sm font-medium hover:bg-white hover:text-neutral-900"
+          >
+            {cta.ctaSecondary}
+          </a>
         </div>
       </div>
     </Section>

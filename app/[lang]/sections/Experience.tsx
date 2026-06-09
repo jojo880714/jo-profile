@@ -1,5 +1,26 @@
+import type { ReactNode } from "react";
 import { Section, Kicker } from "@/components/Section";
 import type { Content, ExperienceItem } from "@/lib/content";
+
+/**
+ * Render a string with **markdown-style** bold markers as inline
+ * highlighted spans. The .hl class draws a subtle yellow underline
+ * highlight + bumps weight, so numbers and key claims become
+ * scan-able visual anchors for a recruiter eye.
+ */
+function renderWithHighlights(text: string): ReactNode[] {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <span key={i} className="hl">
+          {part.slice(2, -2)}
+        </span>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
 
 export function Experience({
   experience,
@@ -56,7 +77,7 @@ function ExperienceRow({ item }: { item: ExperienceItem }) {
           {item.bullets.map((b, i) => (
             <li key={i} className="flex gap-3">
               <span className="text-neutral-400 select-none">—</span>
-              <span>{b}</span>
+              <span>{renderWithHighlights(b)}</span>
             </li>
           ))}
         </ul>
