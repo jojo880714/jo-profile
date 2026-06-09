@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
 
 const inter = Inter({
@@ -14,21 +15,28 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+// Per-locale metadata lives on [lang]/page.tsx. Root metadata is the
+// fallback used by /_not-found and the root redirect.
 export const metadata: Metadata = {
-  title: "Jo Lin — Operations PM, builder of systems",
-  description:
-    "5 years in ops, building systems that turn one person into a cross-functional team. Operations PM at TKB 放洋留遊學. Founder of Joysee Travel.",
   metadataBase: new URL("https://jo-profile.vercel.app"),
+  title: "Jo Lin — Marketing Operations PM, builder of systems",
+  description:
+    "Five years in ops, building systems that turn one person into a cross-functional team. Marketing Operations PM at TKB 放洋留遊學. Founder of Joysee Travel.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Read pathname from the middleware-injected header so we can set
+  // <html lang> server-side without hardcoding "en".
+  const pathname = (await headers()).get("x-pathname") ?? "/";
+  const htmlLang = pathname.startsWith("/zh") ? "zh-Hant" : "en";
+
   return (
     <html
-      lang="en"
+      lang={htmlLang}
       className={`${inter.variable} ${jetbrainsMono.variable} h-full`}
     >
       <body className="min-h-full">{children}</body>

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { content, LANGS, type Lang } from "@/lib/content";
 import { Navigation } from "@/components/Navigation";
@@ -12,6 +13,54 @@ import { Footer } from "./sections/Footer";
 
 export function generateStaticParams() {
   return LANGS.map((lang) => ({ lang }));
+}
+
+const META: Record<Lang, { title: string; description: string }> = {
+  en: {
+    title: "Jo Lin — Marketing Operations PM, builder of systems",
+    description:
+      "Five years operating as a PM in the study-abroad industry — one person shipping product, systems, vendor deals and community at once. AI + automation to scale a team of one.",
+  },
+  zh: {
+    title: "Jo Lin — 行銷營運 PM，系統建構者",
+    description:
+      "在留遊學產業擔任營運 PM 五年，一個人同時扛產品、系統、廠商談判與社群。靠 AI 跟自動化，把一個人擴成一支跨職能團隊。",
+  },
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const langKey = (LANGS.includes(lang as Lang) ? lang : "en") as Lang;
+  const m = META[langKey];
+  const url = `/${langKey}`;
+  return {
+    title: m.title,
+    description: m.description,
+    alternates: {
+      canonical: url,
+      languages: {
+        en: "/en",
+        "zh-Hant": "/zh",
+      },
+    },
+    openGraph: {
+      title: m.title,
+      description: m.description,
+      url,
+      siteName: "Jo Lin",
+      locale: langKey === "zh" ? "zh_TW" : "en_US",
+      type: "profile",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: m.title,
+      description: m.description,
+    },
+  };
 }
 
 export default async function ProfilePage({
