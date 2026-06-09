@@ -20,12 +20,14 @@ export function CTA({ cta }: { cta: Content["cta"] }) {
           >
             {cta.ctaPrimary}
           </a>
-          <a
-            href={social.cv}
-            className="inline-flex items-center justify-center rounded-full border border-white bg-transparent text-white px-5 py-3 text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors"
-          >
-            {cta.ctaSecondary}
-          </a>
+          {social.cv && (
+            <a
+              href={social.cv}
+              className="inline-flex items-center justify-center rounded-full border border-white bg-transparent text-white px-5 py-3 text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors"
+            >
+              {cta.ctaSecondary}
+            </a>
+          )}
         </div>
       </div>
     </Section>

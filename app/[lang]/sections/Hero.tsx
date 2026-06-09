@@ -1,5 +1,126 @@
 import type { Content } from "@/lib/content";
 
+/**
+ * Hero illustration — abstract "team of one" node graph.
+ * One operator at the center (yellow ring) connected by dashed
+ * lines to six labeled satellites (the systems Jo ships).
+ */
+function HeroIllustration() {
+  // Six satellites: a mix of squares (systems / dashboards) and
+  // circles (channels / communities) to vary the rhythm.
+  const satellites = [
+    { x: 50, y: 56, shape: "rect", label: "PM" },
+    { x: 200, y: 48, shape: "rect", label: "GAS" },
+    { x: 232, y: 132, shape: "circle", label: "AI" },
+    { x: 200, y: 218, shape: "rect", label: "OPS" },
+    { x: 50, y: 218, shape: "circle", label: "JS" },
+    { x: 18, y: 132, shape: "circle", label: "TKB" },
+  ];
+
+  return (
+    <svg
+      viewBox="0 0 260 260"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className="absolute inset-0 h-full w-full"
+    >
+      <defs>
+        <pattern
+          id="hero-grid"
+          width="20"
+          height="20"
+          patternUnits="userSpaceOnUse"
+        >
+          <circle cx="10" cy="10" r="0.6" fill="#e5e5e5" />
+        </pattern>
+      </defs>
+      <rect width="260" height="260" fill="url(#hero-grid)" />
+
+      {satellites.map((s, i) => (
+        <line
+          key={`l-${i}`}
+          x1="130"
+          y1="130"
+          x2={s.x}
+          y2={s.y}
+          stroke="#a3a3a3"
+          strokeWidth="1"
+          strokeDasharray="2 3"
+        />
+      ))}
+
+      {satellites.map((s, i) =>
+        s.shape === "rect" ? (
+          <g key={`n-${i}`}>
+            <rect
+              x={s.x - 14}
+              y={s.y - 14}
+              width="28"
+              height="28"
+              rx="4"
+              fill="#ffffff"
+              stroke="#0a0a0a"
+              strokeWidth="1.5"
+            />
+            <text
+              x={s.x}
+              y={s.y + 3}
+              textAnchor="middle"
+              fontFamily="var(--font-jetbrains-mono), monospace"
+              fontSize="7"
+              fontWeight="500"
+              fill="#0a0a0a"
+              letterSpacing="0.05em"
+            >
+              {s.label}
+            </text>
+          </g>
+        ) : (
+          <g key={`n-${i}`}>
+            <circle
+              cx={s.x}
+              cy={s.y}
+              r="15"
+              fill="#ffffff"
+              stroke="#0a0a0a"
+              strokeWidth="1.5"
+            />
+            <text
+              x={s.x}
+              y={s.y + 3}
+              textAnchor="middle"
+              fontFamily="var(--font-jetbrains-mono), monospace"
+              fontSize="7"
+              fontWeight="500"
+              fill="#0a0a0a"
+              letterSpacing="0.05em"
+            >
+              {s.label}
+            </text>
+          </g>
+        )
+      )}
+
+      {/* Center: operator (one person) */}
+      <circle cx="130" cy="130" r="28" fill="#ffca40" />
+      <circle cx="130" cy="130" r="22" fill="#0a0a0a" />
+      <text
+        x="130"
+        y="134"
+        textAnchor="middle"
+        fontFamily="var(--font-jetbrains-mono), monospace"
+        fontSize="9"
+        fontWeight="500"
+        fill="#ffffff"
+        letterSpacing="0.05em"
+      >
+        JO
+      </text>
+    </svg>
+  );
+}
+
+
 export function Hero({ hero }: { hero: Content["hero"] }) {
   return (
     <section
@@ -32,12 +153,7 @@ export function Hero({ hero }: { hero: Content["hero"] }) {
         </div>
 
         <div className="relative aspect-square w-full max-w-sm justify-self-center md:justify-self-end">
-          {/* TODO: replace with hero illustration */}
-          <div className="absolute inset-0 rounded-2xl bg-neutral-100 border border-dashed border-neutral-300 flex items-center justify-center">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400 px-4 text-center">
-              {hero.illustrationTodo}
-            </span>
-          </div>
+          <HeroIllustration />
         </div>
       </div>
     </section>

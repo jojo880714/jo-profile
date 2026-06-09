@@ -1,3 +1,14 @@
+// ─────────────────────────────────────────────────────────────
+// OUTSTANDING PLACEHOLDERS — fill before public launch:
+//   1. social.threads  → fill in Threads profile URL
+//   2. social.github   → fill in GitHub profile URL
+//   3. social.cv       → upload CV PDF to /public/cv.pdf and set
+//                        cv: "/cv.pdf"  (Jo hasn't made the CV yet)
+//   4. Hero illustration is currently an inline SVG node graph in
+//      app/[lang]/sections/Hero.tsx — swap for a real illustration
+//      asset if/when one exists.
+// ─────────────────────────────────────────────────────────────
+
 export type Lang = "en" | "zh";
 
 export const LANGS: Lang[] = ["en", "zh"];
@@ -40,7 +51,6 @@ export type Content = {
     intro: string;
     ctaPrimary: string;
     ctaSecondary: string;
-    illustrationTodo: string;
   };
   capabilities: {
     kicker: string;
@@ -104,7 +114,6 @@ export const content: Record<Lang, Content> = {
         "Hi, I'm Jo — a 5-year ops PM who uses AI and automation to turn one person into a cross-functional team. At a study-abroad company I run product, systems, vendor deals and community at the same time. On the side I build products, run events, and ship tools.",
       ctaPrimary: "View my work",
       ctaSecondary: "Get in touch",
-      illustrationTodo: "TODO: hero illustration placeholder",
     },
     capabilities: {
       kicker: "// What I do",
@@ -275,7 +284,6 @@ export const content: Record<Lang, Content> = {
         "Hi, I'm Jo — 5 年行銷營運 PM，用 AI 與自動化把一個人變成一支跨職能團隊。在留遊學產業同時負責產品、系統、廠商談判與社群,業餘做產品、辦活動、寫工具。",
       ctaPrimary: "看看我的作品",
       ctaSecondary: "跟我聊聊",
-      illustrationTodo: "TODO: hero illustration placeholder",
     },
     capabilities: {
       kicker: "// What I do",
@@ -427,7 +435,11 @@ export const content: Record<Lang, Content> = {
 
 export const social = {
   email: "jojo880714@gmail.com",
-  threads: "https://www.threads.net/@jojo880714",
-  github: "https://github.com/jojowu",
-  cv: "#",
+  // TODO: fill in real Threads URL (e.g. https://www.threads.net/@handle)
+  threads: "",
+  // TODO: fill in real GitHub URL (e.g. https://github.com/handle)
+  github: "",
+  // TODO: Jo hasn't made the CV yet. Once ready, drop the PDF into
+  // /public/cv.pdf and change this to "/cv.pdf".
+  cv: "",
 };

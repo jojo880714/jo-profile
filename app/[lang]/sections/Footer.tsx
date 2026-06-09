@@ -10,37 +10,43 @@ export function Footer({ footer }: { footer: Content["footer"] }) {
           {footer.copyright}
         </p>
         <ul className="flex items-center gap-4">
-          <li>
-            <a
-              href={social.threads}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={footer.threads}
-              className="text-neutral-500 hover:text-neutral-900 transition-colors"
-            >
-              <IconBrandThreads size={18} strokeWidth={1.5} />
-            </a>
-          </li>
-          <li>
-            <a
-              href={social.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={footer.github}
-              className="text-neutral-500 hover:text-neutral-900 transition-colors"
-            >
-              <IconBrandGithub size={18} strokeWidth={1.5} />
-            </a>
-          </li>
-          <li>
-            <a
-              href={`mailto:${social.email}`}
-              aria-label={footer.email}
-              className="text-neutral-500 hover:text-neutral-900 transition-colors"
-            >
-              <IconMail size={18} strokeWidth={1.5} />
-            </a>
-          </li>
+          {social.threads && (
+            <li>
+              <a
+                href={social.threads}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={footer.threads}
+                className="text-neutral-500 hover:text-neutral-900 transition-colors"
+              >
+                <IconBrandThreads size={18} strokeWidth={1.5} />
+              </a>
+            </li>
+          )}
+          {social.github && (
+            <li>
+              <a
+                href={social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={footer.github}
+                className="text-neutral-500 hover:text-neutral-900 transition-colors"
+              >
+                <IconBrandGithub size={18} strokeWidth={1.5} />
+              </a>
+            </li>
+          )}
+          {social.email && (
+            <li>
+              <a
+                href={`mailto:${social.email}`}
+                aria-label={footer.email}
+                className="text-neutral-500 hover:text-neutral-900 transition-colors"
+              >
+                <IconMail size={18} strokeWidth={1.5} />
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     </footer>
