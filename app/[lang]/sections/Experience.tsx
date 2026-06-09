@@ -20,6 +20,17 @@ export function Experience({
           <ExperienceRow key={item.org} item={item} />
         ))}
       </ul>
+
+      {experience.education && (
+        <div className="mt-12 md:mt-16 pt-8 border-t border-neutral-200 max-w-2xl md:ml-[140px]">
+          <p className="font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2">
+            Education
+          </p>
+          <p className="text-sm text-neutral-700 leading-relaxed">
+            {experience.education}
+          </p>
+        </div>
+      )}
     </Section>
   );
 }

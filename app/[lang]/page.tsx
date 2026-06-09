@@ -8,6 +8,7 @@ import { Capabilities } from "./sections/Capabilities";
 import { About } from "./sections/About";
 import { Projects } from "./sections/Projects";
 import { Experience } from "./sections/Experience";
+import { OutsideWork } from "./sections/OutsideWork";
 import { CTA } from "./sections/CTA";
 import { Footer } from "./sections/Footer";
 
@@ -84,6 +85,7 @@ export default async function ProfilePage({
         <About about={c.about} />
         <Projects projects={c.projects} />
         <Experience experience={c.experience} />
+        <OutsideWork outsideWork={c.outsideWork} />
         <CTA cta={c.cta} />
       </main>
       <Footer footer={c.footer} />

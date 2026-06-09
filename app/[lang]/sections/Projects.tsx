@@ -11,12 +11,7 @@ export function Projects({ projects }: { projects: Content["projects"] }) {
         </h2>
       </div>
 
-      <ul
-        className="grid gap-6"
-        style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-        }}
-      >
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {projects.items.map((p) => (
           <ProjectCard key={p.title} project={p} />
         ))}

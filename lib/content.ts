@@ -14,8 +14,8 @@
 //   - 破折號用 ——（雙）
 //   - 數字範圍用半形 –（en-dash），例：5–7、2024–
 //   - CJK ↔ 英文／數字 之間留半形空格
-// EN content with mixed CJK: English first, Chinese in parens on
-// first occurrence, e.g. "Joysee Travel (揪西歡玩)".
+// EN content with mixed CJK: keep Chinese brand names (TKB 放洋留遊學,
+// Joysee Travel 揪西歡玩) verbatim, don't romanize "Fun Study Abroad".
 // ─────────────────────────────────────────────────────────────
 
 export type Lang = "en" | "zh";
@@ -33,6 +33,8 @@ export type Capability = {
 
 export type Metric = { value: string; label: string };
 
+export type MetricGroup = { label: string; items: Metric[] };
+
 export type Project = {
   meta: string;
   title: string;
@@ -47,6 +49,8 @@ export type ExperienceItem = {
   org: string;
   bullets: string[];
 };
+
+export type ReadingItem = { title: string; note: string };
 
 export type Content = {
   nav: {
@@ -75,7 +79,7 @@ export type Content = {
     kicker: string;
     slogan: string;
     paragraphs: string[];
-    metrics: Metric[];
+    metricGroups: MetricGroup[];
   };
   projects: {
     kicker: string;
@@ -86,6 +90,14 @@ export type Content = {
     kicker: string;
     title: string;
     items: ExperienceItem[];
+    education: string;
+  };
+  outsideWork: {
+    kicker: string;
+    title: string;
+    paragraph: string;
+    readingLabel: string;
+    reading: ReadingItem[];
   };
   cta: {
     kicker: string;
@@ -136,7 +148,13 @@ export const content: Record<Lang, Content> = {
     now: {
       label: "Now",
       prefix: "Currently shipping",
-      items: ["Event system", "Market system", "Language-school CMS"],
+      items: [
+        "Event system",
+        "Market system",
+        "Language-school CMS",
+        "Cursor + Claude Code workflow",
+        "Joysee indoor event",
+      ],
     },
     capabilities: {
       kicker: "What I do",
@@ -184,14 +202,29 @@ export const content: Record<Lang, Content> = {
       kicker: "About me",
       slogan: "Systems as leverage.",
       paragraphs: [
-        "I work as a generalist — ops, product, engineering and community all land on my desk. My belief is simple: tools are leverage. The fastest way to scale one operator is to turn vague human requests into systems that keep running.",
-        "The part I like most is taking a messy human workflow apart: where it breaks, what repeats, what can be handed to a system. Prototype the fix, ship it, watch it save a week of work — then move to the next bottleneck.",
+        "I build operating systems for marketing teams. At TKB 放洋留遊學, I launched the company's first study tour product line, trained 300+ salespeople, and turned a summer launch into 260 leads and NT$1M+ first-quarter revenue. I also shipped 6 internal systems across vendor management, quote automation, AI content CMS, social monitoring and partnership ops.",
+        "My work started in marketing, but the real leverage came when I began turning repeatable tasks into software. SOPs help teams remember; systems help teams move. I started with Google Apps Script, then moved into React, Supabase, Firebase, LINE Bot, Claude, Cursor and Claude Code to build tools that remove operational drag.",
+        "Now I work like a team of one: one operator, many systems, fast feedback loops. I like messy workflows, scattered data and jobs still held together by spreadsheets and memory. Next, I want to keep building at the edge of marketing, operations, AI automation and community.",
       ],
-      metrics: [
-        { value: "5+", label: "Years operating" },
-        { value: "9+", label: "Systems shipped" },
-        { value: "3", label: "Communities built" },
-        { value: "1", label: "Team size" },
+      metricGroups: [
+        {
+          label: "Profile",
+          items: [
+            { value: "5+", label: "Years operating" },
+            { value: "2", label: "Communities built" },
+            { value: "1", label: "Team of one" },
+            { value: "3+", label: "Side projects shipped" },
+          ],
+        },
+        {
+          label: "Track record",
+          items: [
+            { value: "6", label: "Internal systems shipped" },
+            { value: "NT$1M+", label: "First-quarter revenue" },
+            { value: "500+", label: "Community participants" },
+            { value: "25×", label: "Threads growth in a year" },
+          ],
+        },
       ],
     },
     projects: {
@@ -199,31 +232,61 @@ export const content: Record<Lang, Content> = {
       title: "Recent things I've shipped.",
       items: [
         {
-          meta: "PRODUCT · 2025",
+          meta: "SIDE PROJECT · 2025",
           title: "XiXi Market (惜惜市集)",
           description:
-            "A vendor onboarding and management system built with Next.js + Supabase — from data model to deployment, shipped solo.",
+            "Built a booth recruitment and management system for a friend's offline market — product structure, vendor intake, admin workflow, email delivery and deployment, end to end.",
           tags: "next.js · supabase · resend",
         },
         {
           meta: "PRODUCT · 2025",
           title: "joysee.travel",
           description:
-            "A LINE-native event registration platform, wired through LIFF, Edge Functions and Tally.",
-          tags: "vite · supabase · liff",
+            "LINE-native event registration platform for Joysee Travel. LIFF, Edge Functions and Tally integration connect registration, member data, notifications and event ops into one flow.",
+          tags: "liff · edge functions · tally · supabase · line bot",
         },
         {
           meta: "AUTOMATION · 2024",
           title: "Threads automation v16",
           description:
-            "Three-account scheduling, metric snapshots, CTA triggers and monthly recaps — all running inside one GAS project.",
-          tags: "gas · meta api · sheets",
+            "Multi-account social ops were too manual — scheduling, monitoring, reporting, engagement all needed attention. Moved the whole workflow into one Google Apps Script project.",
+          tags: "gas · threads api · sheets · claude api",
+        },
+        {
+          meta: "INTERNAL · 2024",
+          title: "Vendor lifecycle system",
+          description:
+            "Built an internal vendor workflow for TKB 放洋留遊學 — turned scattered Drive files and Sheets into one trackable process for sourcing, evaluation, contracts, review and handover.",
+          tags: "react · firebase · gas · claude api · drive api",
+        },
+        {
+          meta: "INTERNAL · 2024",
+          title: "Dual-version quotation engine",
+          description:
+            "A quotation engine that separates internal and client-facing versions, connecting pricing rules, margin logic, seasonal adjustments, PDF generation and Drive filing.",
+          tags: "gas · sheets · drive · pdf generation",
+        },
+        {
+          meta: "INTERNAL · 2024",
+          title: "AI content CMS",
+          description:
+            "AI-assisted CMS for study tour consultants. Turns structured school data into reusable comparison pages, sales materials and pre-consultation content via Claude API.",
+          tags: "react · typescript · supabase · claude api · cms",
+        },
+        {
+          meta: "INTERNAL · 2024",
+          title: "TKB partnership booth system",
+          description:
+            "A 3-week TKB-internal booth recruitment system, supporting a 2-events × 30-booths-per-month seminar cadence. Separate from XiXi Market.",
+          tags: "gas · sheets · forms · drive · event ops",
         },
       ],
     },
     experience: {
       kicker: "Experience",
       title: "Where I've been building.",
+      education:
+        "B.B.A., National Taipei University of Business (國立台北商業大學) · 2017–2021",
       items: [
         {
           year: "2024–",
@@ -247,6 +310,57 @@ export const content: Record<Lang, Content> = {
             "Built JoySee Event Command Center (活動指揮中心), an event-ops system covering registration, LINE-integrated notifications, tiered member management, payment verification and Google Sheets auto-sync.",
             "Brought AI tools into live event formats, including Bluffing King (唬爛王), and built an interactive presentation system to make the on-site experience more participatory.",
           ],
+        },
+        {
+          year: "2023–2024",
+          location: "Taipei",
+          title: "Independent marketing consultant & early entrepreneurial projects",
+          org: "Self-directed",
+          bullets: [
+            "Built websites, landing pages, SEO plans and content systems for brands across education, events, lifestyle and local services.",
+            "Shipped 10+ WordPress sites and campaign pages from brief to launch, covering information architecture, copywriting, tracking setup and conversion flow.",
+            "Ran early product and community experiments across events, content and social — 10 large social events, 500+ participants, and content reaching 100K+ monthly organic views.",
+          ],
+        },
+        {
+          year: "2021–2023",
+          location: "Taipei",
+          title: "Marketing Specialist",
+          org: "ASUS Cloud",
+          bullets: [
+            "Built campaign pages, SEO content, newsletters and social posts for a B2B cloud product line, keeping web and social channels on a consistent publishing rhythm.",
+            "Improved WordPress pages, campaign tracking, content structure and keyword coverage, contributing to 35% YoY organic traffic growth.",
+            "Supported webinars and product events from registration flow to post-event follow-up, including one event with 600+ professional attendees.",
+          ],
+        },
+      ],
+    },
+    outsideWork: {
+      kicker: "Off the clock",
+      title: "People, not networking.",
+      paragraph:
+        "Outside work, I design ways for people to meet without making it feel like networking. Outdoor trips, casual games, indoor activities and improv-style events all feed back into how I think about product. People join for the activity, but they return for the feeling.",
+      readingLabel: "Reading & learning",
+      reading: [
+        {
+          title: "Working in Public",
+          note: "On public creation, community trust and long-term participation — feeds my thinking on community-led product.",
+        },
+        {
+          title: "Shape Up",
+          note: "How Basecamp turns fuzzy asks into shippable product bets. Fits my product + systems workflow.",
+        },
+        {
+          title: "High Output Management",
+          note: "Andy Grove's playbook on org leverage — turning one person's judgement into a team's repeatable process.",
+        },
+        {
+          title: "Cursor + Claude Code workflow",
+          note: "Continuously refining my AI-assisted development flow so prototypes, internal tools and side projects ship faster.",
+        },
+        {
+          title: "Prompt engineering for operations",
+          note: "Prompts not as copywriting toys, but inside reporting, document triage, CMS, event interaction and ops flows.",
         },
       ],
     },
@@ -282,7 +396,13 @@ export const content: Record<Lang, Content> = {
     now: {
       label: "Now",
       prefix: "正在做",
-      items: ["活動系統", "市集系統", "語校 CMS"],
+      items: [
+        "活動系統",
+        "市集系統",
+        "語校 CMS",
+        "Cursor + Claude Code workflow",
+        "Joysee 室內活動",
+      ],
     },
     capabilities: {
       kicker: "我能做什麼",
@@ -292,31 +412,36 @@ export const content: Record<Lang, Content> = {
         {
           icon: "package",
           title: "產品營運",
-          description: "需求丟過來，我會拆成規格、流程和上線順序，最後把產品推到使用者手上。",
+          description:
+            "需求丟過來，我會拆成規格、流程和上線順序，最後把產品推到使用者手上。",
           stack: "OKRs · Notion · 路徑規劃 · 流程設計",
         },
         {
           icon: "robot",
           title: "AI 與自動化",
-          description: "把重複到煩的事交給 Claude、Claude Code 和 GAS，人只留在需要判斷的地方。",
+          description:
+            "把重複到煩的事交給 Claude、Claude Code 和 GAS，人只留在需要判斷的地方。",
           stack: "Cursor · Claude API · Webhooks",
         },
         {
           icon: "code",
           title: "全端開發",
-          description: "用 Next.js + Supabase 快速兜 0→1 系統，先讓流程跑起來，再慢慢補強。",
+          description:
+            "用 Next.js + Supabase 快速兜 0→1 系統，先讓流程跑起來，再慢慢補強。",
           stack: "TypeScript · React · Tailwind · PostgreSQL",
         },
         {
           icon: "handshake",
           title: "廠商與營運",
-          description: "廠商談判、合約、流程、CRM 都碰得到；目標是讓合作不要靠記憶和人情撐。",
+          description:
+            "廠商談判、合約、流程、CRM 都碰得到；目標是讓合作不要靠記憶和人情撐。",
           stack: "LINE OA · CRM · 合約審核 · 流程文件",
         },
         {
           icon: "users",
           title: "社群經營",
-          description: "社群從零跑起來之後，活動、留存、內容節奏都是長期戰。",
+          description:
+            "社群從零跑起來之後，活動、留存、內容節奏都是長期戰。",
           stack: "LINE Bot · LIFF · Threads · Instagram · Figma",
         },
       ],
@@ -325,14 +450,29 @@ export const content: Record<Lang, Content> = {
       kicker: "關於我",
       slogan: "用系統放大自己。",
       paragraphs: [
-        "我是 generalist，營運、產品、技術、社群都會碰。我的工作方法很簡單：先把混亂的需求看懂，再把它變成會自己跑的系統。工具是槓桿，一個人要撐起團隊感，靠的不是硬扛，是把事情兜順。",
-        "我最喜歡把混亂的人工作業拆開看：哪裡卡，哪裡重複，哪裡其實可以交給系統。先打一版能用的原型，推上線，看它省下一週工，再回頭處理下一個瓶頸。",
+        "我一路從行銷、活動、社群做進營運系統。前面幾年做品牌、內容、SEO、活動跟轉換；到 TKB 放洋留遊學後，開始一邊推遊學產品線，一邊把廠商、報價、內容、社群、招商流程寫成內部工具。",
+        "後來越做越確定一件事：很多團隊卡住，不是策略不夠，而是流程太靠人撐。SOP 可以提醒人怎麼做，但系統才會讓事情穩定發生。我從 Google Apps Script 開始自動化，慢慢走到 React + Supabase。",
+        "現在的工作方式比較像 team of one。一個 operator，背後是一組系統。先看資料怎麼流、誰會接手、哪裡容易斷，再決定什麼該變成軟體。接下來想繼續做行銷、營運、AI automation 跟 community 交界上的產品。",
       ],
-      metrics: [
-        { value: "5+", label: "年營運經驗" },
-        { value: "9+", label: "上線系統" },
-        { value: "3", label: "經營社群" },
-        { value: "1", label: "團隊人數" },
+      metricGroups: [
+        {
+          label: "身份",
+          items: [
+            { value: "5+", label: "年營運經驗" },
+            { value: "2", label: "經營社群" },
+            { value: "1", label: "團隊人數" },
+            { value: "3+", label: "上線 side project" },
+          ],
+        },
+        {
+          label: "戰績",
+          items: [
+            { value: "6", label: "上線內部系統" },
+            { value: "NT$1M+", label: "首季營收" },
+            { value: "500+", label: "社群累計參與" },
+            { value: "25×", label: "Threads 一年成長" },
+          ],
+        },
       ],
     },
     projects: {
@@ -340,31 +480,61 @@ export const content: Record<Lang, Content> = {
       title: "最近做的東西。",
       items: [
         {
-          meta: "PRODUCT · 2025",
+          meta: "SIDE PROJECT · 2025",
           title: "惜惜市集",
           description:
-            "用 Next.js + Supabase 兜出來的攤位招商和管理系統。攤商進件、審核、通知一路跑完；架構、資料庫到部署都是我自己收。",
+            "朋友辦線下市集，我幫他做攤位招商與管理系統。從攤商報名、後台管理、信件通知到部署都自己處理，讓籌備流程不用只靠表單跟人工對資料。",
           tags: "next.js · supabase · resend",
         },
         {
           meta: "PRODUCT · 2025",
           title: "joysee.travel",
           description:
-            "LINE 裡就能完成報名的活動平台。LIFF、Edge Functions 和 Tally 串在一起，讓報名、名單、後續通知少掉很多手工。",
-          tags: "vite · supabase · liff",
+            "Joysee 的活動原本靠表單、訊息跟人工整理撐著。我用 LIFF、Edge Functions 與 Tally integration 串起報名、會員資料、LINE 通知與活動營運。",
+          tags: "liff · edge functions · tally · supabase · line bot",
         },
         {
           meta: "AUTOMATION · 2024",
-          title: "Threads 自動化系統 v16",
+          title: "Threads 自動化 v16",
           description:
-            "三個 Threads 帳號的排程、數據快照、CTA 觸發、月報整理，全塞進一個 GAS 專案裡跑。",
-          tags: "gas · meta api · sheets",
+            "多帳號社群最麻煩的是每個環節都要人盯：排程、監控、報表、互動。我把整套流程收進一個 Google Apps Script 專案，讓日常營運穩定跑起來。",
+          tags: "gas · threads api · sheets · claude api",
+        },
+        {
+          meta: "INTERNAL · 2024",
+          title: "廠商生命週期管理系統",
+          description:
+            "遊學廠商資料原本散在 Drive、Sheets 跟交接文件裡。我把找廠商、評估、簽約、文件審查與交接整理成一條可追蹤的內部流程。",
+          tags: "react · firebase · gas · claude api · drive api",
+        },
+        {
+          meta: "INTERNAL · 2024",
+          title: "雙版本報價自動化",
+          description:
+            "報價不能只求快，也要避免把內部成本寄出去。我做出對內與對外雙版本報價流程，串起價格規則、毛利、旺季加價、PDF 產生與 Drive 歸檔。",
+          tags: "gas · sheets · drive · pdf generation",
+        },
+        {
+          meta: "INTERNAL · 2024",
+          title: "AI 內容生成 CMS",
+          description:
+            "顧問準備諮詢內容時，最花時間的是整理學校資料跟比較頁。我做了 AI 內容 CMS，用 Claude API 把語校資料轉成可重複使用的顧問素材。",
+          tags: "react · typescript · supabase · claude api · cms",
+        },
+        {
+          meta: "INTERNAL · 2024",
+          title: "TKB 招商系統",
+          description:
+            "這套是 TKB 內部講座用的招商系統，和惜惜市集不同。3 週內交付，用來支援每月 2 場 × 30 攤的活動配置、攤商資訊與現場管理。",
+          tags: "gas · sheets · forms · drive · event ops",
         },
       ],
     },
     experience: {
       kicker: "經歷",
       title: "我在哪些地方實戰過。",
+      education:
+        "國立台北商業大學 企業管理系 學士 · 2017–2021",
       items: [
         {
           year: "2024–",
@@ -388,6 +558,57 @@ export const content: Record<Lang, Content> = {
             "自建 JoySee 活動指揮中心，把報名、LINE 通知、會員分層、付款審核、Google Sheets 同步全部串起來，撐住社群固定辦活動的節奏。",
             "把 AI 工具放進現場活動裡玩，像「唬爛王」即興簡報挑戰，也順手做了互動式簡報系統，讓參與者不是只坐著看。",
           ],
+        },
+        {
+          year: "2023–2024",
+          location: "Taipei",
+          title: "獨立行銷顧問 ＋ 早期創業實驗",
+          org: "Self-directed",
+          bullets: [
+            "一邊做行銷顧問接案，一邊跑早期創業與創作型 side project，題材橫跨教育、活動、生活風格與在地服務。",
+            "從需求訪談到上線交付，做了 10+ 個 WordPress 官網與 campaign page，包含資訊架構、文案、追蹤設定與轉換流程。",
+            "跑過活動、內容、社群等創業實驗，包含 10 場大型社交活動、500+ 參與者，以及每月自然流量破 10 萬次的內容專案。",
+          ],
+        },
+        {
+          year: "2021–2023",
+          location: "Taipei",
+          title: "Marketing Specialist",
+          org: "ASUS Cloud",
+          bullets: [
+            "做 B2B 雲端產品線的活動頁、SEO 內容、電子報與社群貼文，維持網站與社群的穩定更新節奏。",
+            "調整 WordPress 官網、頁面結構、活動追蹤與關鍵字布局，帶動自然流量年增 35%。",
+            "支援 webinar 與產品活動，從報名流程到會後名單追蹤都有參與，其中一場活動累積 600+ 專業參與者。",
+          ],
+        },
+      ],
+    },
+    outsideWork: {
+      kicker: "工作之外",
+      title: "我在意的是人，不是 networking。",
+      paragraph:
+        "工作之外，我很常在想怎麼讓人自然認識彼此，而不是硬聊、硬社交。戶外活動、輕旅行、室內遊戲、即興簡報，最後都會回到同一件事：人一開始是為了活動而來，但會不會回來，通常取決於那天的感覺。",
+      readingLabel: "最近在讀 / 在學",
+      reading: [
+        {
+          title: "Working in Public",
+          note: "研究公開創作、社群信任與長期參與，對我思考 community-led product 很有幫助。",
+        },
+        {
+          title: "Shape Up",
+          note: "學怎麼把模糊需求切成可交付的 product bets，適合我現在一邊做產品、一邊做系統的工作方式。",
+        },
+        {
+          title: "High Output Management",
+          note: "補組織槓桿與管理底層邏輯，特別是怎麼把個人判斷變成團隊可重複的流程。",
+        },
+        {
+          title: "Cursor + Claude Code",
+          note: "持續整理自己的 AI-assisted development workflow，讓原型、內部工具與 side project 更快走到上線。",
+        },
+        {
+          title: "Prompt engineering for operations",
+          note: "把 prompt 放進報表、文件分類、內容 CMS、活動互動與營運流程，而不只是拿來寫文案。",
         },
       ],
     },
