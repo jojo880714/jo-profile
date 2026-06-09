@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, JetBrains_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
   display: "swap",
 });
@@ -37,7 +37,7 @@ export default async function RootLayout({
   return (
     <html
       lang={htmlLang}
-      className={`${inter.variable} ${jetbrainsMono.variable} h-full`}
+      className={`${geist.variable} ${jetbrainsMono.variable} h-full`}
     >
       <body className="min-h-full">{children}</body>
     </html>

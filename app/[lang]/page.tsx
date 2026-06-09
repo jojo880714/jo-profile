@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { content, LANGS, type Lang } from "@/lib/content";
 import { Navigation } from "@/components/Navigation";
+import { GrainOverlay } from "@/components/GrainOverlay";
 import { Hero } from "./sections/Hero";
 import { NowBar } from "./sections/NowBar";
 import { Capabilities } from "./sections/Capabilities";
@@ -77,6 +78,7 @@ export default async function ProfilePage({
 
   return (
     <>
+      <GrainOverlay />
       <Navigation lang={lang as Lang} nav={c.nav} />
       <main>
         <Hero hero={c.hero} />

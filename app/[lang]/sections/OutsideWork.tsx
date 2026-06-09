@@ -10,7 +10,7 @@ export function OutsideWork({
     <Section id="outside-work">
       <div className="flex flex-col gap-3 mb-12 md:mb-16">
         <Kicker>{outsideWork.kicker}</Kicker>
-        <h2 className="slogan text-3xl sm:text-4xl md:text-5xl text-neutral-900">
+        <h2 className="slogan slogan-section text-neutral-900">
           {outsideWork.title}
         </h2>
       </div>

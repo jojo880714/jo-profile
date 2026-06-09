@@ -7,10 +7,10 @@ export function Experience({
   experience: Content["experience"];
 }) {
   return (
-    <Section id="experience" className="bg-neutral-50">
+    <Section id="experience">
       <div className="flex flex-col gap-3 mb-12 md:mb-16">
         <Kicker>{experience.kicker}</Kicker>
-        <h2 className="slogan text-3xl sm:text-4xl md:text-5xl text-neutral-900">
+        <h2 className="slogan slogan-section text-neutral-900">
           {experience.title}
         </h2>
       </div>

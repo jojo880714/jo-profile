@@ -4,16 +4,31 @@ import { social } from "@/lib/content";
 
 export function CTA({ cta }: { cta: Content["cta"] }) {
   return (
-    <Section id="contact" className="bg-neutral-900 text-white">
-      <div className="flex flex-col gap-6 max-w-3xl">
+    <Section
+      id="contact"
+      className="relative text-white bg-[#0f0f10]"
+    >
+      {/* Soften the abrupt dark-section transition with a radial wash
+          + a top fade so the CTA reads as a deliberate dim, not a copy
+          paste accident. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,rgba(255,202,64,0.18),transparent_55%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-px left-0 right-0 h-24 bg-gradient-to-b from-[#fafaf9] to-transparent opacity-60"
+      />
+
+      <div className="relative flex flex-col gap-6 max-w-3xl">
         <p className="kicker flex items-center gap-2 !text-neutral-400">
           <span
             aria-hidden="true"
-            className="inline-block h-[10px] w-[10px] bg-[#ffca40]"
+            className="inline-block h-[6px] w-[6px] rounded-[2px] bg-[#ffca40]"
           />
           <span>{cta.kicker}</span>
         </p>
-        <h2 className="slogan text-3xl sm:text-4xl md:text-5xl text-white">
+        <h2 className="slogan slogan-section text-white">
           {cta.slogan}
         </h2>
         <p className="text-base md:text-lg text-neutral-300 leading-relaxed">
@@ -22,14 +37,14 @@ export function CTA({ cta }: { cta: Content["cta"] }) {
         <div className="flex flex-wrap gap-3 pt-4">
           <a
             href={`mailto:${social.email}`}
-            className="inline-flex items-center justify-center rounded-full border border-white bg-white text-neutral-900 px-5 py-3 text-sm font-medium hover:bg-transparent hover:text-white transition-colors"
+            className="btn-press inline-flex items-center justify-center rounded-full border border-white bg-white text-neutral-900 px-5 py-3 text-sm font-medium hover:bg-transparent hover:text-white"
           >
             {cta.ctaPrimary}
           </a>
           {social.cv && (
             <a
               href={social.cv}
-              className="inline-flex items-center justify-center rounded-full border border-white bg-transparent text-white px-5 py-3 text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors"
+              className="btn-press inline-flex items-center justify-center rounded-full border border-white bg-transparent text-white px-5 py-3 text-sm font-medium hover:bg-white hover:text-neutral-900"
             >
               {cta.ctaSecondary}
             </a>

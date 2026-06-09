@@ -6,7 +6,7 @@ export function About({ about }: { about: Content["about"] }) {
     <Section id="about">
       <div className="flex flex-col gap-3 mb-10 md:mb-14">
         <Kicker>{about.kicker}</Kicker>
-        <h2 className="slogan text-3xl sm:text-4xl md:text-5xl text-neutral-900">
+        <h2 className="slogan slogan-section text-neutral-900">
           {about.slogan}
         </h2>
       </div>
