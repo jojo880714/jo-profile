@@ -17,14 +17,14 @@ export function generateStaticParams() {
 
 const META: Record<Lang, { title: string; description: string }> = {
   en: {
-    title: "Jo Lin — Marketing Operations PM, builder of systems",
+    title: "Jo Lin — Marketing Operations PM, systems builder",
     description:
-      "Five years operating as a PM in the study-abroad industry — one person shipping product, systems, vendor deals and community at once. AI + automation to scale a team of one.",
+      "Marketing Operations PM with five years in study abroad. One person carrying product, systems, vendor work and community in parallel — AI and automation to make one person's output feel like a small team.",
   },
   zh: {
     title: "Jo Lin — 行銷營運 PM，系統建構者",
     description:
-      "在留遊學產業擔任營運 PM 五年，一個人同時扛產品、系統、廠商談判與社群。靠 AI 跟自動化，把一個人擴成一支跨職能團隊。",
+      "做行銷營運 PM 5 年。在留遊學產業同時扛產品、系統、廠商和社群，用 AI 跟自動化把單人產出放大。下班後做 side product、辦活動、寫工具。",
   },
 };
 

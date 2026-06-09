@@ -7,11 +7,11 @@ export const contentType = "image/png";
 
 const META: Record<Lang, { slogan: string; sub: string }> = {
   en: {
-    slogan: "Ship like a team of one.",
-    sub: "Jo Lin · Marketing Operations PM · Builder of systems",
+    slogan: "One operator, team-sized output.",
+    sub: "Jo Lin · Marketing Operations PM · Systems builder",
   },
   zh: {
-    slogan: "一個人，做一支團隊的事。",
+    slogan: "一個人，撐起一支小隊的產出。",
     sub: "Jo Lin · 行銷營運 PM · 系統建構者",
   },
 };

@@ -19,9 +19,9 @@ const jetbrainsMono = JetBrains_Mono({
 // fallback used by /_not-found and the root redirect.
 export const metadata: Metadata = {
   metadataBase: new URL("https://jo-profile.vercel.app"),
-  title: "Jo Lin — Marketing Operations PM, builder of systems",
+  title: "Jo Lin — Marketing Operations PM, systems builder",
   description:
-    "Five years in ops, building systems that turn one person into a cross-functional team. Marketing Operations PM at TKB 放洋留遊學. Founder of Joysee Travel.",
+    "Marketing Operations PM with five years in study abroad — AI and automation to make one person's output feel like a small team. At TKB 放洋留遊學. Founder of Joysee Travel (揪西歡玩).",
 };
 
 export default async function RootLayout({
